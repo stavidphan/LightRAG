@@ -6,7 +6,7 @@ from lightrag import LightRAG, QueryParam
 from lightrag.llm.ollama import ollama_model_complete, ollama_embed
 from lightrag.utils import EmbeddingFunc
 
-WORKING_DIR = "./dickens"
+WORKING_DIR = "./dickens_ollama"
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
@@ -29,11 +29,11 @@ rag = LightRAG(
     ),
 )
 
-# with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
-#     rag.insert(f.read())
+with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
+    rag.insert(f.read())
 
-# with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
-#     rag.insert(f.read())
+with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
+    rag.insert(f.read())
 
 # Perform naive search
 print(
