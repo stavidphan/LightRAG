@@ -29,35 +29,35 @@ rag = LightRAG(
     ),
 )
 
-with open("./data/books_data.txt", "r", encoding="utf-8") as f:
-    rag.insert(f.read())
+# with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
+#     rag.insert(f.read())
 
-with open("./data/book.txt", "r", encoding="utf-8") as f:
-    rag.insert(f.read())
+# with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
+#     rag.insert(f.read())
 
 # Perform naive search
 print(
-    rag.query("Tư vấn về sách Xứ Cát!", param=QueryParam(mode="naive"))
+    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="naive"))
 )
 
 # Perform local search
 print(
-    rag.query("Tư vấn về sách Xứ Cát!", param=QueryParam(mode="local"))
+    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="local"))
 )
 
 # Perform global search
 print(
-    rag.query("Tư vấn về sách Xứ Cát!", param=QueryParam(mode="global"))
+    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="global"))
 )
 
 # Perform hybrid search
 print(
-    rag.query("Tư vấn về sách Xứ Cát!", param=QueryParam(mode="hybrid"))
+    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="hybrid"))
 )
 
 # stream response
 resp = rag.query(
-    "Tư vấn về sách Xứ Cát!",
+    "Giá thấp nhất của sách Bản Đồ",
     param=QueryParam(mode="hybrid", stream=True),
 )
 
