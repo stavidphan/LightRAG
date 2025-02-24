@@ -721,6 +721,42 @@
       "embedding_min": null,
       "embedding_max": null,
       "original_prompt": "Mua sách Bản Đồ ở đâu?"
+    },
+    "2dcb3022d59c69372c2aa291ee38f4c1": {
+      "return": "{\"high_level_keywords\": [\"Author\", \"Semi-sweet Orange Tree\"], \"low_level_keywords\": [\"Semi-sweet Orange Tree book\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Ai là tác giả của sách Cây Cam Ngọt Của Tôi?"
+    },
+    "3bdf6331500b6d2dd303daea12260f2e": {
+      "return": "Sách \"Cây Cam Ngọt Của Tôi\" không được liệt kê trong cơ sở dữ liệu mà tôi có để trả lời câu hỏi này. Có thể bạn đã nhầm lẫn tên của cuốn sách hoặc tác giả. Vui lòng cung cấp thêm thông tin hoặc kiểm tra lại tên sách và tên tác giả.",
+      "cache_type": "query",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Ai là tác giả của sách Cây Cam Ngọt Của Tôi?"
+    },
+    "268e1a3b3192e3ec4b2f88012b2116ac": {
+      "return": "{\"high_level_keywords\": [\"Book production\", \"Publisher\"], \"low_level_keywords\": [\"S\\u00e1ch C\\u00e2y Cam Ng\\u1ecdt\", \"Me\", \"House publisher\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
+    },
+    "0eb89cc66bdfd592275cc9ca327d8fa2": {
+      "return": "Sách \"Cây Cam Ngọt Của Tôi\" được sản xuất bởi Nhà Xuất Bản Nhã Nam.",
+      "cache_type": "query",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
     }
   },
   "global": {
@@ -777,6 +813,42 @@
       "embedding_min": null,
       "embedding_max": null,
       "original_prompt": "Mua sách Bản Đồ ở đâu?"
+    },
+    "deb1adeb195d53a874f459531cde00fd": {
+      "return": "{\"high_level_keywords\": [\"Author\", \"Book\", \"Title\"], \"low_level_keywords\": [\"C\\u00e2y Cam Ng\\u1ecdt C\\u1ee7a T\\u00f4i\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Ai là tác giả của sách Cây Cam Ngọt Của Tôi?"
+    },
+    "4ea1e52c3b7ac394d4f50be2047bf47c": {
+      "return": "Tác giả của sách \"Cây Cam Ngọt Của Tôi\" không được nêu tên trong phần dữ liệu Knowledge Base mà bạn cung cấp.",
+      "cache_type": "query",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Ai là tác giả của sách Cây Cam Ngọt Của Tôi?"
+    },
+    "fbf12a4eb5e6d8797705c641bcac465e": {
+      "return": "{\"high_level_keywords\": [\"Book\", \"Citrus Tree Sweet Book\", \"Publisher\"], \"low_level_keywords\": [\"S\\u00e1ch C\\u00e2y Cam Ng\\u1ecdt\", \"My Citrus Tree Sweet Book\", \"Nh\\u00e0 xu\\u1ea5t b\\u1ea3n\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
+    },
+    "2ec544491be2a444adddcea7261fc2ce": {
+      "return": "Sách \"Cây Cam Ngọt Của Tôi\" được sản xuất bởi Nhà Xuất Bản Nhã Nam, như thông tin được cung cấp trong Knowledge Base.",
+      "cache_type": "query",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
     }
   },
   "mix": {
@@ -797,6 +869,33 @@
       "embedding_min": null,
       "embedding_max": null,
       "original_prompt": "Tư vấn sách Bản Đồ"
+    },
+    "196dc6b00f215b141309011b77caf92e": {
+      "return": "{\"high_level_keywords\": [\"Selling\", \"Books\", \"Map\"], \"low_level_keywords\": [\"B\\u1ea3n \\u0110\\u1ed3\", \"Purchase\", \"Location\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Mua sách Bản Đồ ở đâu?"
+    },
+    "91dfb533217bdbb39b40f0a3c15de62f": {
+      "return": "{\"high_level_keywords\": [\"Author\", \"Sociology\"], \"low_level_keywords\": [\"C\\u00e2y Cam Ng\\u1ecdt C\\u1ee7a T\\u00f4i\", \"book\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Ai là tác giả của sách Cây Cam Ngọt Của Tôi?"
+    },
+    "e5b0460cc73a97b9d463915331c60c26": {
+      "return": "{\"high_level_keywords\": [\"S\\u00e1ch C\\u00e2y Cam Ng\\u1ecdt\", \"Nh\\u00e0 xu\\u1ea5t b\\u1ea3n\"], \"low_level_keywords\": [\"\\u0110\\u1ed3ng c\\u1ed1t\", \"T\\u00e1c gi\\u1ea3\", \"Xu\\u1ea5t b\\u1ea3n Vi\\u1ec7t Nam\", \"NXB\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
     }
   },
   "hybrid": {
@@ -817,6 +916,33 @@
       "embedding_min": null,
       "embedding_max": null,
       "original_prompt": "Tư vấn sách Bản Đồ"
+    },
+    "5b3dadeb90f58feda21c67a0435ec51a": {
+      "return": "{\"high_level_keywords\": [\"Book\", \"Map\", \"Purchase\"], \"low_level_keywords\": [\"B\\u1ea3n \\u0110\\u1ed3\", \"bookstore\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Mua sách Bản Đồ ở đâu?"
+    },
+    "c3e82f8f463297ec5705179d7c671282": {
+      "return": "{\"high_level_keywords\": [\"Author\", \"Book\", \"Title\"], \"low_level_keywords\": [\"C\\u00e2y Cam Ng\\u1ecdt C\\u1ee7a T\\u00f4i\", \"S\\u00e1ch\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Ai là tác giả của sách Cây Cam Ngọt Của Tôi?"
+    },
+    "d155698be9453ddb7e8878b585e63107": {
+      "return": "{\"high_level_keywords\": [\"S\\u00e1ch C\\u00e2y Cam Ng\\u1ecdt\", \"Nh\\u00e0 Xu\\u1ea5t B\\u1ea3n\"], \"low_level_keywords\": [\"S\\u00e1ch\", \"C\\u00e2y Cam Ng\\u1ecdt\", \"Xu\\u1ea5t b\\u1ea3n\"]}",
+      "cache_type": "keywords",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
     }
   }
 }

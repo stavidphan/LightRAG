@@ -60,8 +60,8 @@ rag = LightRAG(
 
 # Perform local search
 
-input = "Mua sách Bản Đồ ở đâu?"
-print("\nQUERY: " + input "\n\n")
+input = "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
+print("\n\n🔎🔎🔎 QUERY: " + input + "\n\n")
 
 # Perform local search
 print("\n🔎 **Truy vấn mode `LOCAL`** ...")
