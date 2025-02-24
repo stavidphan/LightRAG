@@ -14,23 +14,21 @@ if not os.path.exists(WORKING_DIR):
     os.mkdir(WORKING_DIR)
 
 def custom_chunking(content, split_by_character=None, split_by_character_only=False, chunk_token_size=250, chunk_overlap_token_size=0, tiktoken_model_name="gpt-4o-mini"):
-    lines = content.split("\n")
+    # Chia dữ liệu thành các khối sách dựa trên dòng trống kép
+    book_blocks = content.split("\n\n")
     chunks = []
-    current_chunk = []
-    
-    for line in lines:
-        if line.strip():  # Nếu dòng không trống
-            current_chunk.append(line)
-        else:  # Nếu dòng trống, kết thúc một khối văn bản
-            if current_chunk:
-                chunk_content = "\n".join(current_chunk)
-                chunks.append({"tokens": len(chunk_content.split()), "content": chunk_content})
-                current_chunk = []
-    
-    # Thêm khối văn bản cuối cùng nếu có
-    if current_chunk:
-        chunk_content = "\n".join(current_chunk)
-        chunks.append({"tokens": len(chunk_content.split()), "content": chunk_content})
+
+    for block in book_blocks:
+        if not block.strip():
+            continue
+        
+        # Chia khối sách thành từng dòng (mỗi dòng là một cặp key-value)
+        lines = block.split("\n")
+        for line in lines:
+            line = line.strip()
+            if line:
+                token_count = len(line.split())
+                chunks.append({"tokens": token_count, "content": line})
     
     return chunks
 
@@ -52,11 +50,11 @@ rag = LightRAG(
     chunking_func=custom_chunking
 )
 
-#with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
- #   rag.insert(f.read())
+with open("./data/tiki_books_json.txt", "r", encoding="utf-8") as f:
+   rag.insert(f.read())
 
-#with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
- #   rag.insert(f.read())
+with open("./data/books_goodreads_json.txt", "r", encoding="utf-8") as f:
+   rag.insert(f.read())
 
 # Perform local search
 
