@@ -60,11 +60,6 @@ with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
 with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
     rag.insert(f.read())
 
-# Perform naive search
-print(
-    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="naive"))
-)
-
 # Perform local search
 print(
     rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="local"))
@@ -77,7 +72,7 @@ print(
 
 # Perform hybrid search
 print(
-    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="hybrid"))
+    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="mix"))
 )
 
 # stream response
