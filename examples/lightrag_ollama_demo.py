@@ -74,7 +74,7 @@ response = rag.query(input, param=QueryParam(mode="global"))
 print("\n🟢 **Kết quả (mode `GLOBAL`):**\n" + response)
 
 # Perform hybrid search
-print("\n🔎 **Truy vấn mode `MIX** ...")
+print("\n🔎 **Truy vấn mode `MIX`** ...")
 response = rag.query(input, param=QueryParam(mode="mix"))
 print("\n🟢 **Kết quả (mode `MIX`):**\n" + response)
 

@@ -67,6 +67,9 @@ curl -fsSL https://ollama.com/install.sh | sh
 ```bash
 ollama pull qwen2
 ollama pull nomic-embed-text
+
+ollama pull gemma2:9b --quantize int8
+ollama pull multilingual-e5-large
 ```
 
 ### 5.3. Tạo File Modelfile Cho Model `qwen2`
