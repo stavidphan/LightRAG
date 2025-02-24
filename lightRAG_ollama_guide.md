@@ -104,6 +104,7 @@ scp -r -P 47945 /Users/duypt/Downloads/Documents/LightRAG/data user@213.180.0.36
 Mở một terminal riêng và chạy model `qwen2m`:
 ```bash
 ollama run qwen2m
+ollama serve
 ```
 
 ---
