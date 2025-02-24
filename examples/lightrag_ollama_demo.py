@@ -13,7 +13,7 @@ logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 if not os.path.exists(WORKING_DIR):
     os.mkdir(WORKING_DIR)
 
-def custom_chunking(content, chunk_token_size=250, chunk_overlap_token_size=0, tiktoken_model_name="gpt-4o-mini"):
+def custom_chunking(content, split_by_character=None, split_by_character_only=False, chunk_token_size=250, chunk_overlap_token_size=0, tiktoken_model_name="gpt-4o-mini"):
     lines = content.split("\n")
     chunks = []
     current_chunk = []
@@ -49,35 +49,38 @@ rag = LightRAG(
             texts, embed_model="nomic-embed-text", host="http://localhost:11434"
         ),
     ),
-    chunk_token_size=250,
-    chunk_overlap_token_size=0, 
     chunking_func=custom_chunking
 )
 
-with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
-    rag.insert(f.read())
+#with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
+ #   rag.insert(f.read())
 
-with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
-    rag.insert(f.read())
+#with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
+ #   rag.insert(f.read())
 
 # Perform local search
-print(
-    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="local"))
-)
+
+input = "Mua sách Bản Đồ ở đâu?"
+print("\nQUERY: " + input "\n\n")
+
+# Perform local search
+print("\n🔎 **Truy vấn mode `LOCAL`** ...")
+response = rag.query(input, param=QueryParam(mode="local"))
+print("\n🟢 **Kết quả (mode `LOCAL`):**\n" + response)
 
 # Perform global search
-print(
-    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="global"))
-)
+print("\n🔎 **Truy vấn mode `GLOBAL`** ...")
+response = rag.query(input, param=QueryParam(mode="global"))
+print("\n🟢 **Kết quả (mode `GLOBAL`):**\n" + response)
 
 # Perform hybrid search
-print(
-    rag.query("Giá thấp nhất của sách Bản Đồ", param=QueryParam(mode="mix"))
-)
+print("\n🔎 **Truy vấn mode `MIX** ...")
+response = rag.query(input, param=QueryParam(mode="mix"))
+print("\n🟢 **Kết quả (mode `MIX`):**\n" + response)
 
 # stream response
 resp = rag.query(
-    "Giá thấp nhất của sách Bản Đồ",
+    input,
     param=QueryParam(mode="hybrid", stream=True),
 )
 
