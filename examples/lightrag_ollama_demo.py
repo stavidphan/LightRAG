@@ -13,6 +13,28 @@ logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 if not os.path.exists(WORKING_DIR):
     os.mkdir(WORKING_DIR)
 
+def custom_chunking(content, chunk_token_size=250, chunk_overlap_token_size=0, tiktoken_model_name="gpt-4o-mini"):
+    lines = content.split("\n")
+    chunks = []
+    current_chunk = []
+    
+    for line in lines:
+        if line.strip():  # Nếu dòng không trống
+            current_chunk.append(line)
+        else:  # Nếu dòng trống, kết thúc một khối văn bản
+            if current_chunk:
+                chunk_content = "\n".join(current_chunk)
+                chunks.append({"tokens": len(chunk_content.split()), "content": chunk_content})
+                current_chunk = []
+    
+    # Thêm khối văn bản cuối cùng nếu có
+    if current_chunk:
+        chunk_content = "\n".join(current_chunk)
+        chunks.append({"tokens": len(chunk_content.split()), "content": chunk_content})
+    
+    return chunks
+
+
 rag = LightRAG(
     working_dir=WORKING_DIR,
     llm_model_func=ollama_model_complete,
@@ -27,6 +49,9 @@ rag = LightRAG(
             texts, embed_model="nomic-embed-text", host="http://localhost:11434"
         ),
     ),
+    chunk_token_size=250,
+    chunk_overlap_token_size=0, 
+    chunking_func=custom_chunking
 )
 
 with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:

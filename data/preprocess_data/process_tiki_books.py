@@ -2,7 +2,11 @@ import pandas as pd
 import json
 
 # Đọc file Excel
-df = pd.read_excel("./data/tiki_books_vn.xlsx", engine="openpyxl")
+try:
+    df = pd.read_excel("./data/tiki_books_vn.xlsx", engine="openpyxl")
+except FileNotFoundError:
+    print("File không tồn tại.")
+    exit()
 
 # Hàm tạo câu mô tả sách
 def generate_book_description(row):
@@ -25,20 +29,36 @@ def generate_book_description(row):
     except:
         sellers_text = "Không có thông tin nhà bán khác."
 
-    return (
-        f'Sách "{name}" có giá {price} VND với mức giảm giá {discount}%. '
-        f'Hiện đã bán được {sold} bản và có đánh giá trung bình {rating} sao. '
-        f'Nhà xuất bản là {publisher}. Sản xuất bởi {manufacturer}. '
-        f'Tác giả là {authors}. Sản phẩm được bán tại {link}. '
-        f'Các nhà bán khác: {sellers_text}.'
-    )
+    return {
+        "name": name,
+        "price": price,
+        "discount": discount,
+        "sold": sold,
+        "rating": rating,
+        "publisher": publisher,
+        "manufacturer": manufacturer,
+        "authors": authors,
+        "link": link,
+        "sellers": sellers_text
+    }
 
 # Chuyển đổi từng dòng thành mô tả văn bản
-text_data = "\n".join(df.apply(generate_book_description, axis=1))
+data = df.apply(generate_book_description, axis=1).tolist()
+
+# Tạo mô tả văn bản cho LightRAG
+text_data = []
+for book in data:
+    text = f"""Sách "{book["name"]}" có giá {book["price"]} VND với mức giảm giá {book["discount"]}%. 
+    Hiện đã bán được {book["sold"]} bản và có đánh giá trung bình {book["rating"]} sao.
+    Nhà xuất bản là {book["publisher"]}. Sản xuất bởi {book["manufacturer"]}.
+    Tác giả là {book["authors"]}. Sản phẩm được bán tại {book["link"]}.
+    Các nhà bán khác: {book["sellers"]}.
+"""
+    text_data.append(text)
 
 # Xuất ra file text để nạp vào LightRAG
 with open("./data/tiki_books_vn.txt", "w", encoding="utf-8") as f:
-    f.write(text_data)
+    f.write("\n".join(text_data))
 
 # In kết quả mẫu
-print(text_data[:1000])  # In thử 1000 ký tự đầu tiên
+print("\n".join(text_data)[:1000])  # In thử 1000 ký tự đầu tiên

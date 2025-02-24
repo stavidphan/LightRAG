@@ -153,6 +153,3 @@ git push -u origin main
 ```
 
 ---
-
-Lưu file này với đuôi `.md` để tiện lưu trữ và tham khảo.  
-Hy vọng hướng dẫn này hữu ích!
