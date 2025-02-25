@@ -68,7 +68,7 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama pull qwen2
 ollama pull nomic-embed-text
 
-ollama pull gemma2:9b --quantize int8
+ollama pull gemma2:9b
 ollama pull multilingual-e5-large
 ```
 
