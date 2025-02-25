@@ -36,15 +36,15 @@ def custom_chunking(content, split_by_character=None, split_by_character_only=Fa
 rag = LightRAG(
     working_dir=WORKING_DIR,
     llm_model_func=ollama_model_complete,
-    llm_model_name="gemma2:9b",
+    llm_model_name="gemma2:2b",
     llm_model_max_async=4,
     llm_model_max_token_size=32768,
     llm_model_kwargs={"host": "http://localhost:11434", "options": {"num_ctx": 8192}},
     embedding_func=EmbeddingFunc(
-        embedding_dim=1024,
-        max_token_size=512,
+        embedding_dim=768,
+        max_token_size=8192,
         func=lambda texts: ollama_embed(
-            texts, embed_model="multilingual-e5-large", host="http://localhost:11434"
+            texts, embed_model="nomic-embed-text", host="http://localhost:11434"
         ),
     ),
     chunking_func=custom_chunking
