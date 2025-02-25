@@ -50,15 +50,15 @@ rag = LightRAG(
     chunking_func=custom_chunking
 )
 
-with open("./data/tiki_books_json.txt", "r", encoding="utf-8") as f:
-   rag.insert(f.read())
+#with open("./data/tiki_books_json.txt", "r", encoding="utf-8") as f:
+ #  rag.insert(f.read())
 
-with open("./data/books_goodreads_json.txt", "r", encoding="utf-8") as f:
-   rag.insert(f.read())
+#with open("./data/books_goodreads_json.txt", "r", encoding="utf-8") as f:
+#   rag.insert(f.read())
 
 # Perform local search
 
-input = "Sách Cây Cam Ngọt Của Tôi được sản xuất bởi nhà xuất bản nào?"
+input = "Tư vấn sách Bản Đồ"
 print("\n\n🔎🔎🔎 QUERY: " + input + "\n\n")
 
 # Perform local search
