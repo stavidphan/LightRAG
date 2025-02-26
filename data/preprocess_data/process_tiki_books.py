@@ -60,9 +60,6 @@
 # with open("./data/tiki_books_vn.txt", "w", encoding="utf-8") as f:
 #     f.write("\n".join(text_data))
 
-# # In kết quả mẫu
-# print("\n".join(text_data)[:1000])  # In thử 1000 ký tự đầu tiên
-
 
 ##------------------------------JSON FORMAT----------------------------------------------------------------------------------------##
 import pandas as pd
