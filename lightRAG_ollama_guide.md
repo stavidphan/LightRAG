@@ -32,13 +32,13 @@ sudo apt update && sudo apt upgrade -y
 ## 3. Clone Repository LightRAG
 Có hai repository:
 - **Repository chính thức:** (Cần sửa đổi và insert data từ đầu)
-  ```bash
-  git clone https://github.com/HKUDS/LightRAG.git
-  ```
+```bash
+git clone https://github.com/HKUDS/LightRAG.git
+```
 - **Repository đã insert data (repo của tôi):**
-  ```bash
-  git clone https://github.com/stavidphan/LightRAG.git
-  ```
+```bash
+git clone https://github.com/stavidphan/LightRAG.git
+```
 
 Chuyển vào thư mục dự án:
 ```bash
@@ -68,8 +68,8 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama pull qwen2
 ollama pull nomic-embed-text
 
-ollama pull gemma2:9b
-ollama pull multilingual-e5-large
+ollama pull gemma2:2b
+ollama pull zylonai/multilingual-e5-large
 ```
 
 ### 5.3. Tạo File Modelfile Cho Model `qwen2`
@@ -106,7 +106,7 @@ scp -r -P 47945 /Users/duypt/Downloads/Documents/LightRAG/data user@213.180.0.36
 ## 7. Chạy Model Ollama
 Mở một terminal riêng và chạy model `qwen2m`:
 ```bash
-ollama run qwen2m
+ollama run gemma2:2b
 ollama serve
 ```
 

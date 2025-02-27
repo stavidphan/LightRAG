@@ -62,3 +62,13 @@ while True:
     if query.lower() == "exit":
         break
     ask_lightRAG(query)
+
+# def custom_chunking(content):
+#     chunks = content.split("\n")
+#     return [{"content": chunk.strip(), "tokens": len(chunk.split()), "metadata": {"book_id": i}} for i, chunk in enumerate(chunks) if chunk.strip()]
+
+# with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
+#    content = f.read()
+   
+# chunks = custom_chunking(content)
+# print(chunks[:2])
