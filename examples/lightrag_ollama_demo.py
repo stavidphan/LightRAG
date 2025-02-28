@@ -20,7 +20,7 @@ def custom_chunking(content, split_by_character=None, split_by_character_only=Fa
 rag = LightRAG(
     working_dir=WORKING_DIR,
     llm_model_func=ollama_model_complete,
-    llm_model_name="gemma2:9b",
+    llm_model_name="gemma2:2b",
     llm_model_max_async=4,
     llm_model_max_token_size=8192,
     llm_model_kwargs={"host": "http://localhost:11434", "options": {"num_ctx": 8192}},

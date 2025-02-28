@@ -106,7 +106,7 @@ scp -r -P 47945 /Users/duypt/Downloads/Documents/LightRAG/data user@213.180.0.36
 ## 7. Chạy Model Ollama
 Mở một terminal riêng và chạy model `qwen2m`:
 ```bash
-ollama run gemma2:2b
+ollama run gemma2:9b
 ollama serve
 ```
 
