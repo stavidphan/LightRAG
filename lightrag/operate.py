@@ -37,7 +37,7 @@ import time
 
 def chunking_by_token_size(
     content: str,
-    split_by_character: str | None = None,
+    split_by_character: str = "\n",
     split_by_character_only: bool = False,
     overlap_token_size: int = 128,
     max_token_size: int = 800,

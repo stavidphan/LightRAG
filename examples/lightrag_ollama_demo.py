@@ -42,15 +42,14 @@ rag = LightRAG(
         func=lambda texts: ollama_embed(
             texts, embed_model="nomic-embed-text", host="http://localhost:11434"
         ),
-    ),
-    chunking_func=custom_chunking
+    )
 )
 
 
-with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
-   rag.insert(f.read())
-with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
-   rag.insert(f.read())
+#with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
+#   rag.insert(f.read())
+#with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
+#   rag.insert(f.read())
 
 
 # Perform local search
@@ -59,21 +58,21 @@ print("\n\n🔎🔎🔎 QUERY: " + input + "\n\n")
 
 # Perform local search
 print("\n🔎 **Truy vấn mode `LOCAL`** ...")
-response = rag.query(input, param=QueryParam(mode="local", top_k=10), system_prompt=PROMPTS["universal_rag_response"])
+response = rag.query(input, param=QueryParam(mode="local", top_k=10))
 print("\n🟢 **Kết quả (mode `LOCAL`):**\n" + response)
 
 # Perform global search
 print("\n🔎 **Truy vấn mode `GLOBAL`** ...")
-response = rag.query(input, param=QueryParam(mode="global", top_k=10), system_prompt=PROMPTS["universal_rag_response"])
+response = rag.query(input, param=QueryParam(mode="global", top_k=10))
 print("\n🟢 **Kết quả (mode `GLOBAL`):**\n" + response)
 
 # Perform hybrid search
 print("\n🔎 **Truy vấn mode `MIX`** ...")
-response = rag.query(input, param=QueryParam(mode="mix", top_k=10), system_prompt=PROMPTS["universal_rag_response"])
+response = rag.query(input, param=QueryParam(mode="mix", top_k=10))
 print("\n🟢 **Kết quả (mode `MIX`):**\n" + response)
 
 # stream response
-resp = rag.query(input, param=QueryParam(mode="hybrid", stream=True), system_prompt=PROMPTS["universal_rag_response"])
+resp = rag.query(input, param=QueryParam(mode="hybrid", stream=True))
 
 async def print_stream(stream):
     async for chunk in stream:

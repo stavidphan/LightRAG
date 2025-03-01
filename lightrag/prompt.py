@@ -366,16 +366,12 @@ Khi xử lý thông tin có timestamp:
 ---Conversation History---
 {history}
 
----Data Sources---
-1. Từ Knowledge Graph (KG):  
-{kg_context}  
-
-2. Từ Document Chunks (DC):  
-{vector_context}
+---Knowledge Base---
+{context_data}
 
 ---Response Rules---
 
-- Target format và độ dài: {response_type}
+- Target format and length: {response_type}
 - Sử dụng định dạng markdown với các tiêu đề phù hợp để cấu trúc câu trả lời.
 - Trả lời bằng ngôn ngữ của câu hỏi người dùng (tiếng Việt hoặc tiếng Anh).
 - Đảm bảo câu trả lời liền mạch với lịch sử hội thoại.
