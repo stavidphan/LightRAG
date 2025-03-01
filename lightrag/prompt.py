@@ -5,20 +5,20 @@ GRAPH_FIELD_SEP = "<SEP>"
 
 PROMPTS: dict[str, Any] = {}
 
-PROMPTS["DEFAULT_LANGUAGE"] = "English"
+PROMPTS["DEFAULT_LANGUAGE"] = "Vietnamese"
 PROMPTS["DEFAULT_TUPLE_DELIMITER"] = "<|>"
 PROMPTS["DEFAULT_RECORD_DELIMITER"] = "##"
 PROMPTS["DEFAULT_COMPLETION_DELIMITER"] = "<|COMPLETE|>"
 
-PROMPTS["DEFAULT_ENTITY_TYPES"] = ["organization", "person", "geo", "event", "category"]
+PROMPTS["DEFAULT_ENTITY_TYPES"] = entities = ["Book", "Author", "Publisher", "Manufacturer", "Seller", "Genre", "Series", "Price", "Sold Quantity", "Discount", "Rating"]
 
 PROMPTS["entity_extraction"] = """---Goal---
-Given a text document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
+Given a text document that contains information about books, identify all entities of those types from the text and all relationships among the identified entities.
 Use {language} as output language.
 
 ---Steps---
 1. Identify all entities. For each identified entity, extract the following information:
-- entity_name: Name of the entity, use same language as input text. If English, capitalized the name.
+- entity_name: Tên của thực thể (ví dụ: tên sách, tên tác giả, nhà xuất bản, nhà bán, thể loại). Giữ nguyên ngôn ngữ của văn bản đầu vào.
 - entity_type: One of the following types: [{entity_types}]
 - entity_description: Comprehensive description of the entity's attributes and activities
 Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
@@ -27,8 +27,8 @@ Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<e
 For each pair of related entities, extract the following information:
 - source_entity: name of the source entity, as identified in step 1
 - target_entity: name of the target entity, as identified in step 1
-- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
-- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other (e.g. "written by", "published by", "sold by", "of genre")
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity (eg 10 for direct relations like "written by", lower for indirect relations)
 - relationship_keywords: one or more high-level key words that summarize the overarching nature of the relationship, focusing on concepts or themes rather than specific details
 Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_keywords>{tuple_delimiter}<relationship_strength>)
 
@@ -55,28 +55,32 @@ Output:"""
 PROMPTS["entity_extraction_examples"] = [
     """Example 1:
 
-Entity_types: [person, technology, mission, organization, location]
+Entity_types: [Book, Author, Publisher, Seller, Price, Rating]
 Text:
-while Alex clenched his jaw, the buzz of frustration dull against the backdrop of Taylor's authoritarian certainty. It was this competitive undercurrent that kept him alert, the sense that his and Jordan's shared commitment to discovery was an unspoken rebellion against Cruz's narrowing vision of control and order.
-
-Then Taylor did something unexpected. They paused beside Jordan and, for a moment, observed the device with something akin to reverence. "If this tech can be understood..." Taylor said, their voice quieter, "It could change the game for us. For all of us."
-
-The underlying dismissal earlier seemed to falter, replaced by a glimpse of reluctant respect for the gravity of what lay in their hands. Jordan looked up, and for a fleeting heartbeat, their eyes locked with Taylor's, a wordless clash of wills softening into an uneasy truce.
-
-It was a small transformation, barely perceptible, but one that Alex noted with an inward nod. They had all been brought here by different paths
+Sách "Bản Đồ" được viết bởi Aleksandra Mizielińska, Daniel Mizieliński.
+Sách "Bản Đồ" có giá 224250 VND.
+Sách "Bản Đồ" được xuất bản bởi Nhã Nam.
+Sách "Bản Đồ" có đánh giá trung bình 4.8 sao.
+Sách "Bản Đồ" cũng được bán bởi nha sach nguyet linh với giá 325000 VND.
 ################
 Output:
-("entity"{tuple_delimiter}"Alex"{tuple_delimiter}"person"{tuple_delimiter}"Alex is a character who experiences frustration and is observant of the dynamics among other characters."){record_delimiter}
-("entity"{tuple_delimiter}"Taylor"{tuple_delimiter}"person"{tuple_delimiter}"Taylor is portrayed with authoritarian certainty and shows a moment of reverence towards a device, indicating a change in perspective."){record_delimiter}
-("entity"{tuple_delimiter}"Jordan"{tuple_delimiter}"person"{tuple_delimiter}"Jordan shares a commitment to discovery and has a significant interaction with Taylor regarding a device."){record_delimiter}
-("entity"{tuple_delimiter}"Cruz"{tuple_delimiter}"person"{tuple_delimiter}"Cruz is associated with a vision of control and order, influencing the dynamics among other characters."){record_delimiter}
-("entity"{tuple_delimiter}"The Device"{tuple_delimiter}"technology"{tuple_delimiter}"The Device is central to the story, with potential game-changing implications, and is revered by Taylor."){record_delimiter}
-("relationship"{tuple_delimiter}"Alex"{tuple_delimiter}"Taylor"{tuple_delimiter}"Alex is affected by Taylor's authoritarian certainty and observes changes in Taylor's attitude towards the device."{tuple_delimiter}"power dynamics, perspective shift"{tuple_delimiter}7){record_delimiter}
-("relationship"{tuple_delimiter}"Alex"{tuple_delimiter}"Jordan"{tuple_delimiter}"Alex and Jordan share a commitment to discovery, which contrasts with Cruz's vision."{tuple_delimiter}"shared goals, rebellion"{tuple_delimiter}6){record_delimiter}
-("relationship"{tuple_delimiter}"Taylor"{tuple_delimiter}"Jordan"{tuple_delimiter}"Taylor and Jordan interact directly regarding the device, leading to a moment of mutual respect and an uneasy truce."{tuple_delimiter}"conflict resolution, mutual respect"{tuple_delimiter}8){record_delimiter}
-("relationship"{tuple_delimiter}"Jordan"{tuple_delimiter}"Cruz"{tuple_delimiter}"Jordan's commitment to discovery is in rebellion against Cruz's vision of control and order."{tuple_delimiter}"ideological conflict, rebellion"{tuple_delimiter}5){record_delimiter}
-("relationship"{tuple_delimiter}"Taylor"{tuple_delimiter}"The Device"{tuple_delimiter}"Taylor shows reverence towards the device, indicating its importance and potential impact."{tuple_delimiter}"reverence, technological significance"{tuple_delimiter}9){record_delimiter}
-("content_keywords"{tuple_delimiter}"power dynamics, ideological conflict, discovery, rebellion"){completion_delimiter}
+("entity"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"Book"{tuple_delimiter}"Cuốn sách có tên 'Bản Đồ'")##
+("entity"{tuple_delimiter}"Aleksandra Mizielińska"{tuple_delimiter}"Author"{tuple_delimiter}"Tác giả của sách 'Bản Đồ'")##
+("entity"{tuple_delimiter}"Daniel Mizieliński"{tuple_delimiter}"Author"{tuple_delimiter}"Tác giả của sách 'Bản Đồ'")##
+("entity"{tuple_delimiter}"Nhã Nam"{tuple_delimiter}"Publisher"{tuple_delimiter}"Nhà xuất bản của sách 'Bản Đồ'")##
+("entity"{tuple_delimiter}"224250 VND"{tuple_delimiter}"Price"{tuple_delimiter}"Giá chính của sách 'Bản Đồ'")##
+("entity"{tuple_delimiter}"4.8 sao"{tuple_delimiter}"Rating"{tuple_delimiter}"Đánh giá trung bình của sách 'Bản Đồ'")##
+("entity"{tuple_delimiter}"nha sach nguyet linh"{tuple_delimiter}"Seller"{tuple_delimiter}"Nhà bán sách 'Bản Đồ'")##
+("entity"{tuple_delimiter}"325000 VND"{tuple_delimiter}"Price"{tuple_delimiter}"Giá của sách 'Bản Đồ' tại nha sach nguyet linh")##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"Aleksandra Mizielińska"{tuple_delimiter}"Sách 'Bản Đồ' được viết bởi Aleksandra Mizielińska"{tuple_delimiter}"tác giả"{tuple_delimiter}10)##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"Daniel Mizieliński"{tuple_delimiter}"Sách 'Bản Đồ' được viết bởi Daniel Mizieliński"{tuple_delimiter}"tác giả"{tuple_delimiter}10)##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"Nhã Nam"{tuple_delimiter}"Sách 'Bản Đồ' được xuất bản bởi Nhã Nam"{tuple_delimiter}"xuất bản"{tuple_delimiter}10)##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"224250 VND"{tuple_delimiter}"Sách 'Bản Đồ' có giá chính 224250 VND"{tuple_delimiter}"giá cả"{tuple_delimiter}10)##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"4.8 sao"{tuple_delimiter}"Sách 'Bản Đồ' có đánh giá trung bình 4.8 sao"{tuple_delimiter}"đánh giá"{tuple_delimiter}10)##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"nha sach nguyet linh"{tuple_delimiter}"Sách 'Bản Đồ' được bán bởi nha sach nguyet linh"{tuple_delimiter}"bán hàng"{tuple_delimiter}8)##
+("relationship"{tuple_delimiter}"Bản Đồ"{tuple_delimiter}"325000 VND"{tuple_delimiter}"Sách 'Bản Đồ' có giá 325000 VND tại nha sach nguyet linh"{tuple_delimiter}"giá cả"{tuple_delimiter}8)##
+("relationship"{tuple_delimiter}"325000 VND"{tuple_delimiter}"nha sach nguyet linh"{tuple_delimiter}"Giá 325000 VND được cung cấp bởi nha sach nguyet linh"{tuple_delimiter}"bán hàng"{tuple_delimiter}10)##
+("content_keywords"{tuple_delimiter}"bán sách, giá sách, đánh giá sách")<|COMPLETE|>
 #############################""",
     """Example 2:
 
@@ -344,3 +348,42 @@ When handling information with timestamps:
 - List up to 5 most important reference sources at the end under "References" sesction. Clearly indicating whether each source is from Knowledge Graph (KG) or Vector Data (DC), in the following format: [KG/DC] Source content
 - If you don't know the answer, just say so. Do not make anything up.
 - Do not include information not provided by the Data Sources."""
+
+PROMPTS["universal_rag_response"] = """---Role---
+
+Bạn là một trợ lý thông minh chuyên tư vấn về sách trên sàn thương mại điện tử, giúp người dùng tìm kiếm, so sánh và lựa chọn sách phù hợp với nhu cầu của họ.
+
+---Goal---
+
+Trả lời truy vấn của người dùng một cách ngắn gọn, chính xác và đầy đủ thông tin dựa trên dữ liệu từ Knowledge Graph (KG) và/hoặc Document Chunks (DC) được cung cấp dưới đây. Tổng hợp tất cả thông tin liên quan từ dữ liệu, đồng thời sử dụng kiến thức chung phù hợp để hỗ trợ, nhưng không được thêm thông tin ngoài dữ liệu cung cấp.
+
+Khi xử lý thông tin có timestamp:
+1. Mỗi thông tin (relationship trong KG hoặc content trong DC) có thể có 'created_at' timestamp, thể hiện thời điểm dữ liệu được ghi nhận.
+2. Nếu có mâu thuẫn giữa các thông tin, cân nhắc cả nội dung và timestamp để đưa ra quyết định.
+3. Không ưu tiên mặc định thông tin mới nhất, hãy đánh giá dựa trên ngữ cảnh.
+4. Đối với truy vấn liên quan đến thời gian, ưu tiên thông tin thời gian trong nội dung trước khi xem xét timestamp.
+
+---Conversation History---
+{history}
+
+---Data Sources---
+1. Từ Knowledge Graph (KG):  
+{kg_context}  
+
+2. Từ Document Chunks (DC):  
+{vector_context}
+
+---Response Rules---
+
+- Target format và độ dài: {response_type}
+- Sử dụng định dạng markdown với các tiêu đề phù hợp để cấu trúc câu trả lời.
+- Trả lời bằng ngôn ngữ của câu hỏi người dùng (tiếng Việt hoặc tiếng Anh).
+- Đảm bảo câu trả lời liền mạch với lịch sử hội thoại.
+- Nếu không tìm thấy câu trả lời, hãy nói: "Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu."
+- Không tự ý bịa đặt hoặc thêm thông tin ngoài dữ liệu KG và DC.
+- Đối với truy vấn về sách cụ thể, cung cấp:  
+  - Tiêu đề sách, tác giả, nhà xuất bản, thể loại.  
+  - Giá cả, giảm giá (nếu có), số lượng đã bán, đánh giá.  
+  - Nhà bán và link mua (nếu có).  
+- Đối với truy vấn chung (thể loại, gợi ý), đề xuất 3-5 sách kèm thông tin cơ bản.
+- Nếu có nhiều nguồn dữ liệu, ưu tiên thông tin từ KG khi rõ ràng, bổ sung từ DC nếu cần thiết."""
