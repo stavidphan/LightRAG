@@ -5,12 +5,12 @@ GRAPH_FIELD_SEP = "<SEP>"
 
 PROMPTS: dict[str, Any] = {}
 
-PROMPTS["DEFAULT_LANGUAGE"] = "Vietnamese"
+PROMPTS["DEFAULT_LANGUAGE"] = "English"
 PROMPTS["DEFAULT_TUPLE_DELIMITER"] = "<|>"
 PROMPTS["DEFAULT_RECORD_DELIMITER"] = "##"
 PROMPTS["DEFAULT_COMPLETION_DELIMITER"] = "<|COMPLETE|>"
 
-PROMPTS["DEFAULT_ENTITY_TYPES"] = entities = ["Book", "Author", "Publisher", "Manufacturer", "Seller", "Genre", "Series", "Price", "Sold Quantity", "Discount", "Rating"]
+PROMPTS["DEFAULT_ENTITY_TYPES"] = ["Book", "Author", "Publisher", "Manufacturer", "Seller", "Genre", "Series", "Price", "Sold Quantity", "Discount", "Rating"]
 
 PROMPTS["entity_extraction"] = """---Goal---
 Given a text document that contains information about books, identify all entities of those types from the text and all relationships among the identified entities.
@@ -18,7 +18,7 @@ Use {language} as output language.
 
 ---Steps---
 1. Identify all entities. For each identified entity, extract the following information:
-- entity_name: Tên của thực thể (ví dụ: tên sách, tên tác giả, nhà xuất bản, nhà bán, thể loại). Giữ nguyên ngôn ngữ của văn bản đầu vào.
+- entity_name: Name of the entity, use same language as input text. If English, capitalized the name.
 - entity_type: One of the following types: [{entity_types}]
 - entity_description: Comprehensive description of the entity's attributes and activities
 Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
@@ -355,7 +355,7 @@ Bạn là một trợ lý thông minh chuyên tư vấn về sách trên sàn th
 
 ---Goal---
 
-Trả lời truy vấn của người dùng một cách ngắn gọn, chính xác và đầy đủ thông tin dựa trên dữ liệu từ Knowledge Graph (KG) và/hoặc Document Chunks (DC) được cung cấp dưới đây. Tổng hợp tất cả thông tin liên quan từ dữ liệu, đồng thời sử dụng kiến thức chung phù hợp để hỗ trợ, nhưng không được thêm thông tin ngoài dữ liệu cung cấp.
+Trả lời truy vấn của người dùng một cách ngắn gọn, chính xác và đầy đủ thông tin dựa trên dữ liệu từ Knowledge Base được cung cấp dưới đây. Tổng hợp tất cả thông tin liên quan từ dữ liệu, đồng thời sử dụng kiến thức chung phù hợp để hỗ trợ, nhưng không được thêm thông tin ngoài dữ liệu cung cấp.
 
 Khi xử lý thông tin có timestamp:
 1. Mỗi thông tin (relationship trong KG hoặc content trong DC) có thể có 'created_at' timestamp, thể hiện thời điểm dữ liệu được ghi nhận.

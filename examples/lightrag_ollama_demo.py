@@ -16,18 +16,22 @@ logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 if not os.path.exists(WORKING_DIR):
     os.mkdir(WORKING_DIR)
 
-# def custom_chunking(content, split_by_character=None, split_by_character_only=False, chunk_token_size=250, chunk_overlap_token_size=0, tiktoken_model_name="gpt-4o-mini"):
-#     chunks = content.split("\n")
-#     return [{"content": chunk.strip(), "tokens": len(chunk.split()), "metadata": {"book_id": i}} for i, chunk in enumerate(chunks) if chunk.strip()]
-
-custom_chunking = partial(
-    chunking_by_token_size,
-    split_by_character="\n",
+def custom_chunking_wrapper(
+    content,
+    split_by_character=None,
     split_by_character_only=False,
-    overlap_token_size=50,
-    max_token_size=512,
-    tiktoken_model="gpt-4o",
-)
+    chunk_token_size=250,
+    chunk_overlap_token_size=0,
+    tiktoken_model_name="gpt-4o"
+):
+    return chunking_by_token_size(
+        content=content,
+        split_by_character="\n",
+        split_by_character_only=False,  
+        overlap_token_size=50,         
+        max_token_size=512,         
+        tiktoken_model="gpt-4o" 
+    )
 
 rag = LightRAG(
     working_dir=WORKING_DIR,
@@ -42,14 +46,15 @@ rag = LightRAG(
         func=lambda texts: ollama_embed(
             texts, embed_model="nomic-embed-text", host="http://localhost:11434"
         ),
-    )
+    ),
+    chunking_func=custom_chunking_wrapper
 )
 
 
-#with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
-#   rag.insert(f.read())
-#with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
-#   rag.insert(f.read())
+with open("./data/tiki_books_vn.txt", "r", encoding="utf-8") as f:
+  rag.insert(f.read())
+with open("./data/books_goodreads_en.txt", "r", encoding="utf-8") as f:
+  rag.insert(f.read())
 
 
 # Perform local search
